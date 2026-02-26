@@ -15,6 +15,13 @@ apt-get update -q
 echo "[2/5] 安裝 Python 3.10 及相依套件..."
 apt-get install -y -q python3 python3-pip python3-venv
 
+# 安裝 Mosquitto MQTT Broker
+echo "[2b] 安裝 Mosquitto MQTT Broker..."
+apt-get install -y -q mosquitto mosquitto-clients
+cp "$APP_DIR/mosquitto.conf" /etc/mosquitto/conf.d/semiconductor.conf
+systemctl enable mosquitto
+systemctl restart mosquitto
+
 # 建立虛擬環境並安裝 Python 套件
 echo "[3/5] 建立 Python 虛擬環境並安裝套件..."
 python3 -m venv /home/vagrant/venv
@@ -90,4 +97,6 @@ echo " 執行 'bash ~/app/start_vagrant.sh' 或"
 echo " 執行 'sudo systemctl start semiconductor-monitor' 啟動服務"
 echo " FastAPI   → http://localhost:8100/docs"
 echo " Streamlit → http://localhost:8601"
+echo " MQTT Broker → localhost:1883"
+echo " 訂閱 Topic → factory/semiconductor/sensor"
 echo "======================================"

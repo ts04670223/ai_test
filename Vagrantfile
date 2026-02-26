@@ -11,6 +11,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8100, host: 8100, host_ip: "127.0.0.1"
   # Streamlit 前端
   config.vm.network "forwarded_port", guest: 8601, host: 8601, host_ip: "127.0.0.1"
+  # MQTT Broker
+  config.vm.network "forwarded_port", guest: 1883, host: 1883, host_ip: "127.0.0.1"
 
   # 同步專案目錄到 VM
   config.vm.synced_folder ".", "/home/vagrant/app"
